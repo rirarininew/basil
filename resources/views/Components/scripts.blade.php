@@ -1,8 +1,8 @@
 <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/../assets/js/core/jquery.min.js"></script>
+  <script src="/../assets/js/core/popper.min.js"></script>
+  <script src="/../assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="/../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!-- Plugin for the momentJs  -->
   <!--<script src="../assets/js/plugins/moment.min.js"></script> -->
   <!--  Plugin for Sweet Alert -->
@@ -38,7 +38,7 @@
   <!--  Notifications Plugin    -->
   <!-- <script src="../assets/js/plugins/bootstrap-notify.js"></script> -->
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+  <script src="/../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <!-- <script src="../assets/demo/demo.js"></script> -->
   <!--
@@ -223,3 +223,17 @@
     });
   </script>
   -->
+  <script>
+    $(function () {
+    $('#province_id').on('change', function () {
+        axios.post('{{ route('outlets.store') }}', {id: $(this).val()})
+            .then(function (response) {
+                $('#city_id').empty();
+
+                $.each(response.data, function (id, name) {
+                    $('#city_id').append(new Option(name, id))
+                })
+            });
+    });
+  });
+  </script>

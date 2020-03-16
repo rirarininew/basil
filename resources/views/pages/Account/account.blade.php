@@ -18,7 +18,11 @@ active
       <div class="card">
         <!-- header account personal details -->
         <div class="card-header card-header-primary">
-          <h4 class="card-title">Personal Details</h4>
+          <h4 class="card-title">Personal Details
+          <div class="align-content-end">
+          <a type="submit" class="btn btn-success pull-right" href="{{ route('user.create') }}">Add User in Outlet</a>
+          </div>
+          </h4>
         </div>
         <!-- header end -->
         <!-- body form start -->

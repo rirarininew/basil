@@ -17,8 +17,7 @@ class BackendCustomerController extends Controller
     }
 
     public function outlets(){
-    	$dataOutlet=outlet_model::all();
-    	return view('pages/Outlets/outlets',['outlet' => $dataOutlet]);
+    	return view('pages/Outlets/outlets');
     }
 
     public function CreateOutlets(){

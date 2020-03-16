@@ -8,7 +8,8 @@ active
 
 <!-- isi bagian konten -->
 @section('konten')
-	
+
+
 <div class="content">
 <div class="container-fluid">
 
@@ -23,55 +24,70 @@ active
         <!-- header end-->
         <!-- body start--> 
           <div class="card-body">
+        @if ($errors->any())
+          <div class="alert alert-danger">
+          <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+          </ul>
+          </div>
+        @endif
         <!-- form start -->
-          <form>
+          <form method="post" action="{{ route('outlets.store') }}">
+          @csrf
           <div class="row">
         <!-- outlet -->
           <div class="col-md-12">
           <div class="form-group">
             <label class="bmd-label-floating">Outlet Name</label>
-            <input type="text" class="form-control" >
+            <input type="text" class="form-control" name="outlet_name">
           </div>
           </div>
         <!-- address -->             
           <div class="col-md-12">
           <div class="form-group">
             <label class="bmd-label-floating">Address</label>
-            <input type="text" class="form-control" >
+            <input type="text" class="form-control" name="outlet_address">
+          </div>
+          </div>
+          <!-- province -->            
+          <div class="col-md-12">
+          <div class="form-group">
+            <select class="form-control" name="outlet_province" id="province_id">
+              <option selected>- Select Province -</option>
+              @foreach ($indonesia_provinces as $id => $name)
+              <option value="{{ $id }}">{{ $name }}</option>
+              @endforeach
+            </select>
+
           </div>
           </div>
         <!-- city -->            
           <div class="col-md-12">
           <div class="form-group">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">City</button>
-            <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            </div>
+            <select class="form-control" name="outlet_city" id="city_id">
+              <option selected>- Select City -</option>
+              @foreach ($indonesia_cities as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+              @endforeach
+            </select>
+
           </div>
           </div>
-        <!-- province -->            
-          <div class="col-md-12">
-          <div class="form-group">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Province</button>
-            <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            </div>
-          </div>
-          </div>
+
         <!-- contact -->             
           <div class="col-md-12">
           <div class="form-group">
             <label class="bmd-label-floating">Contact</label>
-            <input type="text" class="form-control" >
+            <input type="text" class="form-control" name="outlet_contact">
           </div>
           </div>
         <!-- user -->              
           <div class="col-md-12">
           <div class="form-group">
-            <label class="bmd-label-floating"> User <span class="bg-success text-dark"><i>  Manager  </i></span></label>
-            <input type="text" class="form-control" disabled="">
+            <label class="bmd-label-floating">User</label>
+            <input type="text" class="form-control" value="manager" name="outlet_user" disabled="">
           </div>
           </div>
         <!-- button save & cancel -->               
@@ -87,7 +103,7 @@ active
     </div>
     </div>
     </div>
-         
+
 </div>
 </div>
 

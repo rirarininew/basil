@@ -24,7 +24,7 @@ active
     <!-- form search end -->
     </div>
     <!-- create outlet -->
-    <a type="submit" class="btn btn-primary pull-righ m-sm-5" href="/basil/CreateOutlets">Create Outlet</a>
+    <a type="submit" class="btn btn-primary pull-righ m-sm-5" href="{{ route('outlets.create') }}">Create Outlet</a>
   </div>
 </nav>
 <!-- End Navbar -->
@@ -72,9 +72,12 @@ active
           <th>
             Status
           </th>
+          <th>
+            Edit
+          </th>
         </thead>
  <!-- column table end -->
-@foreach($dataOulet as $o)
+@foreach($outlets as $o)
  <!-- row outlet table start -->
         <tbody>
           <tr>
@@ -100,7 +103,10 @@ active
             {{ $o->outlet_user }}
           </td>
           <td>
-            <a href="/basil/EditOutlets">{{ $o->outlet_status }}</a>
+            {{ $o->outlet_status }}</a>
+          </td>
+          <td>
+            <a href="{{ route('outlets.edit', $o->outlet_id)}}">more...</a>
           </td>
           </tr> 
 @endforeach

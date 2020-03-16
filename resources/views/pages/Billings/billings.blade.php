@@ -16,7 +16,7 @@ active
 
       <!-- your billing start -->
       <div class="row">
-      <div class="col-md-5 bg-success">
+      <div class="col-md-5">
 
         <div class="card">
         <!-- header start -->
@@ -105,18 +105,18 @@ active
   <div class="card-header card-header-primary">
     <h4 class="card-title ">Billing History
     <div class="collapse navbar-collapse justify-content-end">
-      <!-- form start -->
+      <!-- form start 
       <form class="navbar-form">
       <div class="input-group no-border">
-        <input type="text" value="" class="form-control" placeholder="Search...">
-        <!-- button start -->
+        <input type="text" value="" class="form-control" placeholder="Search...">-->
+        <!-- button start 
         <button type="submit" class="btn btn-white btn-round btn-just-icon">
         <i class="material-icons">search</i>
         <div class="ripple-container"></div>
-        </button>
-        <!-- button end -->
+        </button>-->
+        <!-- button end 
       </div>
-      </form>
+      </form>-->
       <!-- end of form -->
     </div>
     </h4>
@@ -128,49 +128,35 @@ active
     <table class="table">
     <thead class=" text-primary">
       <th>
-      ID
+      Outlet ID
       </th>
       <th>
-      Outlet Name
+      Subscription Plan
       </th>
       <th>
-      Adrress
+      Start Date
       </th>
       <th>
-      City
-      </th>
-      <th>
-      Province
-      </th>
-      <th>
-      Contact
-      </th>
-      <th>
-      User
-      </th>
-      <th>
-      Status
+      End Date
       </th>
     </thead>
     <tbody>
+      @foreach($subs as $s)
       <tr>
       <td>
-      1
+      {{$s->outlet_id}}
       </td>
       <td>
-      Dakota Rice
+      {{$s->subs_plan}}
       </td>
       <td>
-      Niger
+      {{$s->subs_start}}
       </td>
       <td>
-      Oud-Turnhout
-      </td>
-      <td class="text-primary">
-      $36,738
+      {{$s->subs_end}}
       </td>
       </tr>
-              
+      @endforeach       
       </tbody>
       </table>
     </div>

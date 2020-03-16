@@ -13,7 +13,7 @@
             </a>
           </li>
           <li class="nav-item @yield('activeOutlets')">
-            <a class="nav-link" href="/basil/outlets">
+            <a class="nav-link" href="{{ route('outlets.index') }}">
               <i class="material-icons">location_ons</i>
               <p>Outlets</p>
             </a>
