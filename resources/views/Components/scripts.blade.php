@@ -3,6 +3,10 @@
   <script src="/../assets/js/core/popper.min.js"></script>
   <script src="/../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="/../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
+  <!--<script src="/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+  <script src="/assets/js/bootstrap.js" type="text/javascript"></script>
+  <script src="/assets/js/login-register.js" type="text/javascript"></script>-->
   <!-- Plugin for the momentJs  -->
   <!--<script src="../assets/js/plugins/moment.min.js"></script> -->
   <!--  Plugin for Sweet Alert -->
@@ -223,17 +227,3 @@
     });
   </script>
   -->
-  <script>
-    $(function () {
-    $('#province_id').on('change', function () {
-        axios.post('{{ route('outlets.store') }}', {id: $(this).val()})
-            .then(function (response) {
-                $('#city_id').empty();
-
-                $.each(response.data, function (id, name) {
-                    $('#city_id').append(new Option(name, id))
-                })
-            });
-    });
-  });
-  </script>

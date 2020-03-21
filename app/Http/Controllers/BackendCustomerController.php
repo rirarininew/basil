@@ -8,8 +8,13 @@ use App\outlet_model;
 
 class BackendCustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
 	public function index(){
-    	return view('index');
+    	return view('indexcustomer');
     }
 
     public function dashboard(){
@@ -18,14 +23,6 @@ class BackendCustomerController extends Controller
 
     public function outlets(){
     	return view('pages/Outlets/outlets');
-    }
-
-    public function CreateOutlets(){
-    	return view('pages/Outlets/CreateOutlets');
-    }
-
-    public function EditOutlets(){
-    	return view('pages/Outlets/EditOutlets');
     }
 
     public function billings(){
@@ -47,4 +44,22 @@ class BackendCustomerController extends Controller
     public function contactUs(){
     	return view('pages/ContactUs/contactUs');
     }
+
+    //public function login(){
+      //  return view('pages/login');
+    //}
+
+    public function store(Request $request)
+    {
+       $validasi = $request->validate([
+        'user_email' => 'required',
+        'user_password' => 'required',
+        'role' => 'required',
+       ]);
+       $user = UserModel::create($validasi);
+
+       return redirect('basil/dashboard');
+    }
 }
+
+

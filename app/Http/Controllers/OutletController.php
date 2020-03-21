@@ -4,33 +4,35 @@ namespace App\Http\Controllers;
 
 use App\OutletModel;
 use Illuminate\Http\Request;
-use App\Province;
-use App\City;
+use Illuminate\Support\Facades\DB;
+
 
 class OutletController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function index()
     {
-        $outlets = OutletModel::all();
-        return view ('pages.Outlets.outlets', compact('outlets'));
+        $outlet = OutletModel::all();
+        //$outlet = Auth::user()->dataOutlet();
+        return view ('pages.Outlets.outlets', compact('outlet'));
     }
 
     
     public function create()
     {
-        $indonesia_provinces = Province::pluck('name', 'id');
-        $indonesia_cities = City::pluck('name', 'province_id', 'id');
+        $address = $this->indonesia();
         return view('pages.Outlets.CreateOutlets', [
-            'indonesia_provinces' => $indonesia_provinces,
-            'indonesia_cities' => $indonesia_cities,
+            'indonesia' => json_encode($address['indonesia'], true)
         ]);
     }
 
    
     public function store(Request $request)
     {
-       $cities = City::where('province_id', $request->get('id'))->pluck('name', 'id');
        $validasi = $request->validate([
         'outlet_name' => 'required',
         'outlet_address' => 'required',
@@ -41,7 +43,6 @@ class OutletController extends Controller
        ]);
        $outlets = OutletModel::create($validasi);
 
-       return response()->json($cities);
        return redirect('basil/outlets')->with('success', 'selamat data berhasil ditambah!');
     }
 
@@ -49,18 +50,15 @@ class OutletController extends Controller
     public function show(OutletModel $outletModel)
     {
         //
-         // return view ('pages/Outlets/EditOutlets', compact('outletModel'));
     }
 
     
     public function edit(OutletModel $outletModel)
     {
-        $indonesia_cities = City::pluck('name', 'province_id', 'id');
-        $indonesia_provinces = Province::pluck('name', 'id');
+        $address = $this->indonesia();
         return view ('pages/Outlets/EditOutlets'
-            , compact('outletModel'),
-            ['indonesia_cities' => $indonesia_cities,
-            'indonesia_provinces' => $indonesia_provinces,
+            , compact('outletModel'), [
+            'indonesia' => json_encode($address['indonesia'], true)
         ]);
     }
 
@@ -84,5 +82,34 @@ class OutletController extends Controller
     public function destroy(OutletModel $outletModel)
     {
         //
+    }
+
+    public function cari(Request $request)
+    {
+        // menangkap data pencarian
+        $cari = $request->cari;
+ 
+            // mengambil data dari table pegawai sesuai pencarian data
+        $outlets = DB::table('outlet')
+        ->where('outlet_name','like',"%".$cari."%")
+        ->paginate();
+ 
+            // mengirim data pegawai ke view index
+        return view('pages.Outlets.outlets',['outlet' => $outlets]);
+ 
+    }
+
+    private function indonesia () {
+        $getData = json_decode(file_get_contents('http://128.199.145.173:8668/api/indonesia'), true);
+        $address = [];
+        
+        if ($getData) {
+            if (!empty($getData['data'])) {
+                $all_indonesia = $getData['data'];
+                $address['indonesia'] = $all_indonesia;
+            }
+        } 
+
+        return $address;
     }
 }

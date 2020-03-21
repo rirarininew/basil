@@ -1,5 +1,5 @@
 <!-- Menghubungkan dengan view template sideBar -->
-@extends('index')
+@extends('pages.indexcustomer')
 <!-- mengaktifkan list account di sidebar-->
 @section('activeAccount')
 active
@@ -24,27 +24,28 @@ active
       <!-- body start-->
       <div class="card-body">
         <!-- form start-->
-        <form>
+        <form method="POST" action="{{ route('user.update', Auth::user()->id) }}">
+        @csrf
+        @method('PUT')
           <div class="row">
             <!-- name-->
             <div class="col-md-12">
             <div class="form-group">
-              <label class="bmd-label-floating">Name</label>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" name ="id" value="{{ Auth::user()->id }}" disabled="" hidden="true">
             </div>
             </div>
             <!-- phone-->
             <div class="col-md-12">
             <div class="form-group">
-              <label class="bmd-label-floating">Phone</label>
-              <input type="text" class="form-control" >
+              <label class="bmd-label-floating">Name</label>
+              <input type="text text-uppercase" class="form-control" name="name" value="{{ Auth::user()->name }}">
             </div>
             </div>
             <!-- email address-->
             <div class="col-md-12">
             <div class="form-group">
               <label class="bmd-label-floating">Email address</label>
-              <input type="email" class="form-control" >
+              <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}">
             </div>
             </div>
 

@@ -1,5 +1,5 @@
 <!-- Menghubungkan dengan view template sideBar -->
-@extends('index')
+@extends('pages.indexcustomer')
 <!-- mengaktifkan list billings di sidebar-->
 @section('activeBilling')
 active

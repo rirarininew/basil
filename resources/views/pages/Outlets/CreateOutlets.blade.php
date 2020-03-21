@@ -1,5 +1,5 @@
 <!-- Menghubungkan dengan view template index -->
-@extends('index')
+@extends('pages.indexcustomer')
 
 <!-- mengaktifkan list oulets di sidebar-->
 @section('activeOutlets')
@@ -41,38 +41,30 @@ active
           <div class="col-md-12">
           <div class="form-group">
             <label class="bmd-label-floating">Outlet Name</label>
-            <input type="text" class="form-control" name="outlet_name">
+            <input type="text" class="form-control text-uppercase" name="outlet_name">
           </div>
           </div>
         <!-- address -->             
           <div class="col-md-12">
           <div class="form-group">
             <label class="bmd-label-floating">Address</label>
-            <input type="text" class="form-control" name="outlet_address">
+            <input type="text" class="form-control text-uppercase" name="outlet_address">
           </div>
           </div>
           <!-- province -->            
           <div class="col-md-12">
           <div class="form-group">
-            <select class="form-control" name="outlet_province" id="province_id">
-              <option selected>- Select Province -</option>
-              @foreach ($indonesia_provinces as $id => $name)
-              <option value="{{ $id }}">{{ $name }}</option>
-              @endforeach
-            </select>
-
+            <label class="bmd-label-floating">Province
+            <select class="form-control text-uppercase" name="outlet_province" id="province_id_" data-selected=""></select>
+            </label>
           </div>
           </div>
         <!-- city -->            
           <div class="col-md-12">
           <div class="form-group">
-            <select class="form-control" name="outlet_city" id="city_id">
-              <option selected>- Select City -</option>
-              @foreach ($indonesia_cities as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
-              @endforeach
-            </select>
-
+            <label class="bmd-label-floating">City
+            <select class="form-control text-uppercase" name="outlet_city" id="city_id_"></select>
+            </label>
           </div>
           </div>
 
@@ -80,14 +72,13 @@ active
           <div class="col-md-12">
           <div class="form-group">
             <label class="bmd-label-floating">Contact</label>
-            <input type="text" class="form-control" name="outlet_contact">
+            <input type="text" class="form-control text-uppercase" name="outlet_contact">
           </div>
           </div>
         <!-- user -->              
           <div class="col-md-12">
           <div class="form-group">
-            <label class="bmd-label-floating">User</label>
-            <input type="text" class="form-control" value="manager" name="outlet_user" disabled="">
+            <input type="text" class="form-control" value="{{ Auth::user()->id }}" name="outlet_user" hidden="true">
           </div>
           </div>
         <!-- button save & cancel -->               
@@ -107,4 +98,58 @@ active
 </div>
 </div>
 
+@endsection
+
+@section('scripts')
+  <script type="text/javascript">
+    var indonesia = {!! $indonesia !!}
+    // alert('tes');
+    console.log('test', indonesia)
+
+    var selectProv = $('#province_id_');
+
+    getLoad(selectProv, indonesia, 'key');
+
+    function getLoad(target, data, dataSelector) {
+      // var target = $('#province_id_');
+      var selected = target.attr('data-selected');
+
+      Object.keys(data).forEach(function (key) {
+          if (typeof isArray !== 'undefined') {
+            console.log(1)
+            var tmp = data[key];
+            target.append($("<option class='text-capitalize' " + (selected == tmp ? 'selected=selected' : '') + "></option>")
+              .attr("value", key)
+              .text(tmp));
+          } else {
+            console.log(2)
+            var tmp = dataSelector && dataSelector == "key" ? key : data[key];
+            target.append($("<option class='text-capitalize' " + (selected == tmp ? 'selected=selected' : '') + "></option>")
+              .attr("value", dataSelector && dataSelector == "key" ? key : data[key])
+              .text(tmp));
+          }
+        });
+    }
+
+    function clear (data) {
+      data.find('option').remove();
+    }
+
+    $('#province_id_').on("change", function (e) {
+      var data_source = null/* Data array here */;
+      try { data_source = indonesia[$(this).val()] } catch (ex) { }
+      console.log('check change', data_source)
+      var target = $('#city_id_');
+
+      clear (target);
+      getLoad(target, data_source, 'value')
+
+      
+      // window.dynamicSelect.clear(target, function () {
+      //   window.dynamicSelect.load(target, data_source, "value");
+      //   target.attr("province", $(e.target).val());
+      //   window.dynamicSelect.disableNextOnEmpty($(e.target), target);
+      // });
+    });
+  </script>
 @endsection

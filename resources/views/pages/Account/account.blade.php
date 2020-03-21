@@ -1,5 +1,5 @@
 <!-- Menghubungkan dengan view template sideBar -->
-@extends('index')
+@extends('pages.indexcustomer')
 <!-- mengaktifkan list account di sidebar-->
 @section('activeAccount')
 active
@@ -18,11 +18,7 @@ active
       <div class="card">
         <!-- header account personal details -->
         <div class="card-header card-header-primary">
-          <h4 class="card-title">Personal Details
-          <div class="align-content-end">
-          <a type="submit" class="btn btn-success pull-right" href="{{ route('user.create') }}">Add User in Outlet</a>
-          </div>
-          </h4>
+          <h4 class="card-title">Personal Details</h4>
         </div>
         <!-- header end -->
         <!-- body form start -->
@@ -33,20 +29,27 @@ active
             <!-- name -->
             <div class="col-md-12">
             
-              <label class="bmd-label-floating">Name : </label>
-              <label class="bmd-label-floating text-dark">Rini S.</label>
+              <label class="bmd-label-floating">ID : </label>
+              <label class="bmd-label-floating text-dark">{{ Auth::user()->id }}</label>
             </div>
             <!-- phone -->
             <div class="col-md-12">
             
-              <label class="bmd-label-floating">Phone : </label>
-              <label class="bmd-label-floating text-dark">08155508409</label>
+              <label class="bmd-label-floating">Name : </label>
+              <label class="bmd-label-floating text-dark">{{ Auth::user()->name }}</label>
             </div>
             <!-- email address -->
             <div class="col-md-12">
             
               <label class="bmd-label-floating">Email address : </label>
-              <label class="bmd-label-floating text-dark">rirarininew@gmail.com</label>
+              <label class="bmd-label-floating text-dark">{{ Auth::user()->email }}</label>
+            </div>
+
+            <!-- role -->
+            <div class="col-md-12">
+            
+              <label class="bmd-label-floating">Role : </label>
+              <label class="bmd-label-floating text-dark">{{ Auth::user()->role }}</label>
             </div>
                   
             </div>
@@ -63,22 +66,25 @@ active
     <!-- card profile start -->
     <div class="col-md-4">
       <div class="card card-profile">
-      <!-- avatar start -->
+      
       <div class="card-avatar">
         <a href="javascript:;">
           <img class="img" src="../assets/img/faces/marc.png" />
         </a>
       </div>
-      <!-- avatar end -->
-      <!-- card body start-->
+      
+      
       <div class="card-body">
-        <h6 class="card-category text-gray">MANAGER</h6>
-        <h4 class="card-title">Rini Setyowati</h4>
+        <h6 class="card-category text-gray">{{ Auth::user()->role }}</h6>
+        <h4 class="card-title">{{ Auth::user()->name }}</h4>
         <p class="card-description">
-        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+        ____________________________________________________________________
         </p>
+        <div class="align-content-center">
+          <a type="submit" class="btn btn-success" href="{{ route('user.create') }}">Add Employee</a>
+          </div>
       </div>
-      <!-- card body end -->
+      
       </div>
       </div>
       <!-- card profile end -->

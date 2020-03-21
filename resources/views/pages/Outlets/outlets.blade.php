@@ -1,5 +1,5 @@
 <!-- Menghubungkan dengan view template master -->
-@extends('index')
+@extends('pages.indexcustomer')
 
 <!-- mengaktifkan list oulets di sidebar-->
 @section('activeOutlets')
@@ -12,9 +12,9 @@ active
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
   <div class="collapse navbar-collapse justify-content-end">
     <!-- form search start -->
-    <form class="navbar-form">
+    <form class="navbar-form" action="/outlets/cari" method="GET">
       <div class="input-group no-border">
-        <input type="text" value="" class="form-control" placeholder="Search...">
+        <input type="text" name="cari" value="{{ old('cari') }}" class="form-control" placeholder="Search outlets...">
         <button type="submit" class="btn btn-white btn-round btn-just-icon">
         <i class="material-icons">search</i>
           <div class="ripple-container"></div>
@@ -55,7 +55,7 @@ active
             Outlet Name
           </th>
           <th>
-            Adrress
+            Address
           </th>
           <th>
             City
@@ -67,7 +67,7 @@ active
             Contact
           </th>
           <th>
-            User
+            MANAGER ID
           </th>
           <th>
             Status
@@ -77,9 +77,12 @@ active
           </th>
         </thead>
  <!-- column table end -->
-@foreach($outlets as $o)
- <!-- row outlet table start -->
         <tbody>
+
+@foreach($outlet as $o)
+@if($o->outlet_user == Auth::user()->id)
+
+ <!-- row outlet table start -->
           <tr>
           <td>
             {{ $o->outlet_id }}
@@ -109,7 +112,9 @@ active
             <a href="{{ route('outlets.edit', $o->outlet_id)}}">more...</a>
           </td>
           </tr> 
+@endif
 @endforeach
+
         </tbody>
       </table>
       </div>

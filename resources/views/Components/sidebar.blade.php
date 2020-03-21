@@ -1,9 +1,12 @@
 <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-
-      <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          BASIL SUBSCRIPTION
-        </a></div>
+  <div class="sidebar" data-color="purple" data-background-color="white" data-image="/../assets/img/sidebar-1.jpg">
+    
+    <div class="logo">
+      <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        BASIL SUBSCRIPTION
+      </a>
+    </div>
+      
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item @yield('activeDashboard')  ">
@@ -57,5 +60,5 @@
             </a>
           </li>
         </ul>
-      </div>
-    </div>
+  </div>
+</div>
